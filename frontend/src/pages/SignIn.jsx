@@ -1,6 +1,7 @@
 import { useState } from "react"
 import "../App.css"
 import { useNavigate } from "react-router-dom"
+import axios from "axios"
 
 export const SignIn=()=>{
 
@@ -22,7 +23,7 @@ export const SignIn=()=>{
         }))
     }
 
-    const handleSubimt = (e)=>{
+    const handleSubimt = async (e)=>{
 
         e.preventDefault()
 
@@ -36,8 +37,13 @@ export const SignIn=()=>{
             return;
         }
 
+          try{
 
-        console.log(data);
+            let res = axios.post("http://localhost:3000/signin",data)
+            console.log(res);
+          }catch(error){
+            console.log(error);
+          }
     }
 
     return<>
