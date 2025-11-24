@@ -3,10 +3,8 @@ const dotenv = require("dotenv")
 const dbSetup = require("./db/setUp")
 const User = require("./schema/userSchema")
 const cors = require("cors")
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
-
-
 
 dotenv.config({})
 
@@ -27,15 +25,14 @@ app.post("/signup",async(req,res)=>{
     
     let {name,password,email} = req.body
 
-    let salt = bcrypt.genSalt(10)
-    let haspassword = bcrypt.hash(password,salt)
+    let haspassword = bcrypt.hash(password,10)
     
    let newuser = new User({
     name,email,password:haspassword
    })
    await newuser.save()
 
-  let token = jwt.sign({email},process.env.JWT_KEY)
+  let token = jwt.sign(email,process.env.JWT_KEY)
 
   res.cookie("token",token)
 
@@ -51,7 +48,22 @@ app.post("/signin",(req,res)=>{
         throw new Error("user not registred")
     }
 
+     let checkpassword = bcrypt.compare(password,user.password)
+
+     if(!checkpassword){
+        throw new Error("Password is wrong")
+     }
+   
+    let token = req.cookies.token
+
+    let resdata = jwt.verify(token,JWT_KEY)
     
+    if(resdata){
+        req.user=resdata
+        res.json({message:"user authenticated"})
+    }else{
+        throw new Error("user not authnticated")
+    }
 })
 
 app.listen(process.env.PORT,()=>{
