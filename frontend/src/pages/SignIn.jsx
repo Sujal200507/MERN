@@ -39,7 +39,7 @@ export const SignIn=()=>{
 
           try{
 
-            let res = axios.post("http://localhost:3000/api/signin",data)
+            let res = await axios.post("http://localhost:3000/api/signin",data)
             console.log(res)
           }catch(error){
             console.log(error);

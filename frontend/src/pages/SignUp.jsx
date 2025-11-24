@@ -1,8 +1,11 @@
 import { useState } from "react"
 import axios from "axios";
 import "../App.css"
+import { useNavigate } from "react-router-dom";
 
 export const SignUp=()=>{
+
+    const navigate = useNavigate()
 
     const[data,setData] = useState({
         name:"",
@@ -57,6 +60,7 @@ export const SignUp=()=>{
 
             let res = await axios.post("http://localhost:3000/api/signup",data)
             console.log(res);
+            navigate("/contact")
         }catch(error){
             console.log(error);
         }
