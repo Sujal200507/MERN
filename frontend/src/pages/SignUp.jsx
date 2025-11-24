@@ -55,7 +55,7 @@ export const SignUp=()=>{
 
         try{
 
-            let res = await axios.post("http://localhost:3000/signup",data)
+            let res = await axios.post("http://localhost:3000/api/signup",data)
             console.log(res);
         }catch(error){
             console.log(error);
