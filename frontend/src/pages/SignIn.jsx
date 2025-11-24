@@ -40,7 +40,7 @@ export const SignIn=()=>{
           try{
 
             let res = axios.post("http://localhost:3000/signin",data)
-            console.log(res);
+            console.log(res)
           }catch(error){
             console.log(error);
           }
