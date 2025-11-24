@@ -5,7 +5,7 @@ const User = require("./schema/userSchema")
 const cors = require("cors")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
-const Contact = require("./schema/contactSchema")
+
 
 dotenv.config({})
 
@@ -26,7 +26,7 @@ app.post("/api/signup",async(req,res)=>{
     
     let {name,password,email} = req.body
 
-    let haspassword = bcrypt.hash(password,10)
+    let haspassword = await bcrypt.hash(password,10)
     
    let newuser = new User({
     name,email,password:haspassword

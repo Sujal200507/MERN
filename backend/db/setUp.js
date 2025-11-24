@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 const mongodbSetup=async()=>{
-   const url = "mongodb://127.0.0.1/mydb"
+   const url = process.env.MONGO_URI
    await mongoose.connect(url)
    .then(()=>{
     console.log("mongodb connected suceesfully");
