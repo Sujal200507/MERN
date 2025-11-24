@@ -5,6 +5,7 @@ const User = require("./schema/userSchema")
 const cors = require("cors")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+const Contact = require("./schema/contactSchema")
 
 dotenv.config({})
 
@@ -21,7 +22,7 @@ app.get("/",(req,res)=>{
  res.send("Working")
 })
 
-app.post("/signup",async(req,res)=>{
+app.post("/api/signup",async(req,res)=>{
     
     let {name,password,email} = req.body
 
@@ -36,10 +37,10 @@ app.post("/signup",async(req,res)=>{
 
   res.cookie("token",token)
 
-   res.json({message:"user created"})
-})
+  res.json({message:"user created"})
+})  
 
-app.post("/signin",(req,res)=>{
+app.post("/api/signin",(req,res)=>{
 
     let {email,password} = req.body
 
